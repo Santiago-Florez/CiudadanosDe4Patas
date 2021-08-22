@@ -10,7 +10,9 @@ public class Manager {
 		this.pet = new ArrayList<>();
 	}
 	
-	public void assingID() {
+	public String assingID() {
+		String id = "";
 		
+		return id;
 	}
 }
