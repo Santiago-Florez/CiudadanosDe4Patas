@@ -11,7 +11,7 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class LeerArchivoCSV {
 
-	private String ruta = ".\\Data\\pets-citizens.csv";
+	private String ruta = "./Data/pets-citizens.csv";
 
 	private ArrayList<Long> microchip;
 	private ArrayList<String> species;
