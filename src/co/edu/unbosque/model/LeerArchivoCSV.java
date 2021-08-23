@@ -13,7 +13,7 @@ public class LeerArchivoCSV {
 
 	private String ruta = "./Data/pets-citizens.csv";
 
-	private ArrayList<Long> microchip;
+	private ArrayList<String> microchip;
 	private ArrayList<String> species;
 	private ArrayList<String> sex;
 	private ArrayList<String> size;
@@ -35,12 +35,11 @@ public class LeerArchivoCSV {
 	public void leerCSV() {
 		try {
 			archivoCSV = new FileReader(ruta);
-			CSVParser conPyC = new CSVParserBuilder().withSeparator(';').build();
+			CSVParser conPyC = new CSVParserBuilder().withSeparator(',').build();
 			csvReader = new CSVReaderBuilder(archivoCSV).withCSVParser(conPyC).build();
 			String[] f = null;
 			while((f = csvReader.readNext()) != null) {
-				long micro = Long.parseLong(f[0]);
-				this.microchip.add(micro);
+				this.microchip.add(f[0]);
 				this.species.add(f[1]);
 				this.sex.add(f[2]);
 				this.size.add(f[3]);
@@ -50,7 +49,7 @@ public class LeerArchivoCSV {
 			}
 			archivoCSV.close();
 			csvReader.close();
-			System.out.println(this.nbh.get(0) + "\n");
+			System.out.println(this.microchip.get(0) + "\n");
 		}catch(IOException e) {
 			System.out.println("Que paso pai??");
 		}catch(CsvValidationException e) {
