@@ -2,6 +2,7 @@ package co.edu.unbosque.model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -48,11 +49,66 @@ public class LeerArchivoCSV {
 			}
 			archivoCSV.close();
 			csvReader.close();
-			System.out.println(this.dangerous.get(0) + "\n");
 		}catch(IOException e) {
 			System.out.println("Que paso pai??");
 		}catch(CsvValidationException e) {
 			System.out.println("QUE paso pai csv??");
 		}
+	}
+
+	public String getRuta() {
+		return ruta;
+	}
+
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+
+	public ArrayList<String> getMicrochip() {
+		return microchip;
+	}
+
+	public void setMicrochip(ArrayList<String> microchip) {
+		this.microchip = microchip;
+	}
+
+	public ArrayList<String> getSpecies() {
+		return species;
+	}
+
+	public void setSpecies(ArrayList<String> species) {
+		this.species = species;
+	}
+
+	public ArrayList<String> getSex() {
+		return sex;
+	}
+
+	public void setSex(ArrayList<String> sex) {
+		this.sex = sex;
+	}
+
+	public ArrayList<String> getSize() {
+		return size;
+	}
+
+	public void setSize(ArrayList<String> size) {
+		this.size = size;
+	}
+
+	public ArrayList<String> getDangerous() {
+		return dangerous;
+	}
+
+	public void setDangerous(ArrayList<String> dangerous) {
+		this.dangerous = dangerous;
+	}
+
+	public ArrayList<String> getNbh() {
+		return nbh;
+	}
+
+	public void setNbh(ArrayList<String> nbh) {
+		this.nbh = nbh;
 	}
 }
