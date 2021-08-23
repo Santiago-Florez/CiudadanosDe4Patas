@@ -17,7 +17,7 @@ public class LeerArchivoCSV {
 	private ArrayList<String> species;
 	private ArrayList<String> sex;
 	private ArrayList<String> size;
-	private ArrayList<Boolean> dangerous;
+	private ArrayList<String> dangerous;
 	private ArrayList<String> nbh;
 
 	private FileReader archivoCSV;
@@ -43,13 +43,12 @@ public class LeerArchivoCSV {
 				this.species.add(f[1]);
 				this.sex.add(f[2]);
 				this.size.add(f[3]);
-				boolean d = Boolean.parseBoolean(f[4]);
-				this.dangerous.add(d);
+				this.dangerous.add(f[4]);
 				this.nbh.add(f[5]);
 			}
 			archivoCSV.close();
 			csvReader.close();
-			System.out.println(this.microchip.get(0) + "\n");
+			System.out.println(this.dangerous.get(0) + "\n");
 		}catch(IOException e) {
 			System.out.println("Que paso pai??");
 		}catch(CsvValidationException e) {
