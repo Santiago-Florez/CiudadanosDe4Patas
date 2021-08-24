@@ -23,6 +23,16 @@ public class Pet implements Serializable {
 		this.potentDangerous = dangerous;
 		this.neighborhood = neighborhood;
 	}
+	
+	public Pet() {
+		this.id = null;
+		this.microchip = 0;
+		this.species = null;
+		this.sex = null;
+		this.size = null;
+		this.potentDangerous = false;
+		this.neighborhood = null;
+	}
 
 	@Override
 	public String toString() {
