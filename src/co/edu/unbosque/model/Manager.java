@@ -72,6 +72,8 @@ public class Manager {
 			mensaje = "El proceso de carga del archivo no se ha realizado correctamente";
 		} catch (CsvValidationException e) {
 			mensaje = "Hubo un error en el cvs";
+		}catch(NullPointerException e) {
+			mensaje = "Hubo un problema al obtener la ruta del archivo .csv";
 		}
 		return mensaje;
 	}

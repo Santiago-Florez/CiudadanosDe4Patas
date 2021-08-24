@@ -9,6 +9,6 @@ public class Controller {
 		Manager m = new Manager();
 		View v = new View();
 		//System.out.println(m.assingID());
-		m.uploadData(v.chooserFile());
+		System.out.println(m.uploadData(v.chooserFile()));
 	}
 }
