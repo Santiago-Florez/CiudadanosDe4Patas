@@ -22,8 +22,6 @@ public class Manager {
 	private ArrayList<Boolean> dngerous = new ArrayList<>();
 	private ArrayList<String> nbh = new ArrayList<>();
 
-	private String ruta = "./Data/pets-citizens.csv";
-
 	private FileReader archivoCSV;
 	private CSVReader csvReader;
 
@@ -31,7 +29,7 @@ public class Manager {
 		this.pets = new Pet();
 	}
 
-	public String uploadData() {
+	public String uploadData(String ruta) {
 		int datosLeidos = 0;
 		int datosNoLeidos = 0;
 		String mensaje = "";
@@ -71,15 +69,14 @@ public class Manager {
 			csvReader.close();
 			mensaje = "El proceso de carga del archivo ha finalizado";
 		} catch (IOException e) {
-			System.out.println("Que paso pai??");
+			mensaje = "El proceso de carga del archivo no se ha realizado correctamente";
 		} catch (CsvValidationException e) {
-			System.out.println("QUE paso pai csv??");
+			mensaje = "Hubo un error en el cvs";
 		}
 		return mensaje;
 	}
 
 	public String assingID() {
-		uploadData();
 		System.out.println(pet.get(0).getMicrochip());
 		System.out.println(this.pets.getMicrochip());
 		System.out.println(this.micro.get(0));
@@ -92,14 +89,6 @@ public class Manager {
 
 	public void setPet(ArrayList<Pet> pet) {
 		this.pet = pet;
-	}
-
-	public String getRuta() {
-		return ruta;
-	}
-
-	public void setRuta(String ruta) {
-		this.ruta = ruta;
 	}
 
 //	public String assingID() {
