@@ -112,7 +112,7 @@ public class Manager {
 				mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex() + this.pet.get(i).getSize()
 						+ d + "\n";
 			}
-			inicio:
+			boolean ciloW = false;
 			for (int j = i; j > 0; j--) {
 				try {
 					if (mensaje.equals(this.pet.get(j).getId())) {
@@ -127,7 +127,6 @@ public class Manager {
 					id = id.substring(id.length() - numDigitosID);
 					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
 							+ this.pet.get(i).getSize() + d + "\n";
-					continue inicio;
 				}
 			}
 			this.pet.get(i).setId(mensaje);
