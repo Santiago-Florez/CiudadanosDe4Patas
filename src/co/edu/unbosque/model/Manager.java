@@ -14,13 +14,6 @@ public class Manager {
 
 	private ArrayList<Pet> pet = new ArrayList<>();
 	private Pet pets;
-	
-	private ArrayList<Long> micro = new ArrayList<Long>();
-	private ArrayList<String> sp = new ArrayList<>();
-	private ArrayList<String> sex = new ArrayList<>();
-	private ArrayList<String> size = new ArrayList<>();
-	private ArrayList<Boolean> dngerous = new ArrayList<>();
-	private ArrayList<String> nbh = new ArrayList<>();
 
 	private FileReader archivoCSV;
 	private CSVReader csvReader;
@@ -35,34 +28,55 @@ public class Manager {
 		String mensaje = "";
 		try {
 			archivoCSV = new FileReader(ruta);
-			CSVParser conPyC = new CSVParserBuilder().withSeparator(',').build();
+			CSVParser conPyC = new CSVParserBuilder().withSeparator(';').build();
 			csvReader = new CSVReaderBuilder(archivoCSV).withCSVParser(conPyC).build();
 			String[] f = null;
 			while ((f = csvReader.readNext()) != null) {
 				try {
 					long micro = Long.parseLong(f[0]);
 					this.pets.setMicrochip(micro);
-					this.micro.add(micro);
-					if (!f[1].equals("NO IDENTIFICADO")) {
-						this.pets.setSpecies(f[1]);
-						this.sp.add(f[1]);
-					} else {
+					if (!f[1].equals("NO IDENTIFICADO") && f[1].equals("CANINO")) {
+						this.pets.setSpecies("C");
+					} else if(!f[1].equals("NO IDENTIFICADO") && f[1].equals("FELINO")) {
+						this.pets.setSpecies("F");
+					}else {
 						throw new UnknowSpeciesException();
 					}
-					this.pets.setSex(f[2]);
-					this.sex.add(f[2]);
-					this.pets.setSize(f[3]);
-					this.size.add(f[3]);
-					Boolean dangerous = Boolean.parseBoolean(f[4]);
-					this.pets.setPotentDangerous(dangerous);
-					this.dngerous.add(dangerous);
-					this.pets.setNeighborhood(f[5]);
-					this.nbh.add(f[5]);
+					if(f[2].equals("MACHO")) {
+						this.pets.setSex("M");
+					}else {
+						this.pets.setSex("H");
+					}
+					if (f[3].equals("MINIATURA")) {
+						this.pets.setSize("MI");
+					}else if (f[3].equals("PEQUE�O")) {
+						this.pets.setSize("P");
+					}else if (f[3].equals("MEDIANO")) {
+						this.pets.setSize("M");
+					}else if (f[3].equals("GRANDE") || f[3].equals("MUY GRANDE") || f[3].equals("GIGANTE")) {
+						this.pets.setSize("G");
+					}
+					Boolean dangerous = false;
+					if(f[4].equals("SI")) {
+						dangerous = true;
+						this.pets.setPotentDangerous(dangerous);
+					}else {
+						this.pets.setPotentDangerous(dangerous);
+					}
+					if(!f[5].equals("")) {
+						this.pets.setNeighborhood(f[5]);
+					}else {
+						throw new EmptyAttributeException();
+					}
 					datosLeidos++;
+					this.pet.add(new Pet("No ASIGNADO", this.pets.getMicrochip(), this.pets.getSpecies(), this.pets.getSex(),
+									this.pets.getSize(), this.pets.isPotentDangerous(), this.pets.getNeighborhood()));
 				} catch (UnknowSpeciesException e) {
 					datosNoLeidos++;
 				} catch (NumberFormatException e) {
-					datosLeidos++;
+					datosNoLeidos++;
+				}catch (EmptyAttributeException e) {
+					datosNoLeidos++;
 				}
 			}
 			archivoCSV.close();
@@ -72,17 +86,28 @@ public class Manager {
 			mensaje = "El proceso de carga del archivo no se ha realizado correctamente";
 		} catch (CsvValidationException e) {
 			mensaje = "Hubo un error en el cvs";
-		}catch(NullPointerException e) {
-			mensaje = "Hubo un problema al obtener la ruta del archivo .csv";
 		}
-		return mensaje;
+		return mensaje + "\n# de datos excluidos: "+ datosNoLeidos;
 	}
 
 	public String assingID() {
-		System.out.println(pet.get(0).getMicrochip());
-		System.out.println(this.pets.getMicrochip());
-		System.out.println(this.micro.get(0));
-		return "Ayyy ñoñi";
+		String mensaje = "";
+		for (int i = 0;i < this.pet.size(); i++) {
+			String id = String.valueOf(this.pet.get(i).getMicrochip());
+			id = id.substring(id.length()-2);
+			if(this.pet.get(i).isPotentDangerous() == true) {
+				String d = String.valueOf(this.pet.get(i).isPotentDangerous());
+				d = d.substring(0,1).toUpperCase();
+				mensaje += id+"-"+this.pet.get(i).getSpecies()+this.pet.get(i).getSex()+this.pet.get(i).getSize()+d+"\n";
+			}else {
+				String d = String.valueOf(this.pet.get(i).isPotentDangerous());
+				d = d.substring(0,1).toUpperCase();
+				mensaje += id+"-"+this.pet.get(i).getSpecies()+this.pet.get(i).getSex()+this.pet.get(i).getSize()+d+"\n";
+			}
+			
+		}
+
+		return mensaje;
 	}
 
 	public ArrayList<Pet> getPet() {
@@ -92,28 +117,4 @@ public class Manager {
 	public void setPet(ArrayList<Pet> pet) {
 		this.pet = pet;
 	}
-
-//	public String assingID() {
-//		String id = "";
-//		String n, num1, numRev = "", a;
-//		int i = 0;
-//		n = l.getMicrochip().get(1506);
-////		long num = Long.parseLong(n);
-////		num1 = String.valueOf(num);
-//		numRev = "";
-//		a = "";
-//		char num2[] = n.toCharArray();
-//		if (num2.length >= 14) {
-//			for (int j = 9; j <= 17; j++) {
-//				a = Character.toString(num2[j]);
-//				numRev = numRev.concat(a);
-//			}
-//		}else {//hacer un else if (num2.lengh ==14)
-//			id += 32;
-//		}
-//		long numFinal = Long.parseLong(numRev);
-//		id += numFinal + " ";
-//
-//		return id;
-//	}
 }

@@ -36,7 +36,7 @@ public class Pet implements Serializable {
 
 	@Override
 	public String toString() {
-		return microchip + "-" + species + sex + size + potentDangerous + neighborhood;
+		return this.microchip + " " + this.species + " " + this.sex + " " + " " + this.size + " " + this.potentDangerous + " " + this.neighborhood;
 	}
 
 	public String getId() {
