@@ -97,7 +97,7 @@ public class Manager {
 		int contIDRepetidos = 0;
 		int exceptions = 0;
 		String d = "";
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < 10; i++) {
 			int numDigitosID = 2;
 			String id = String.valueOf(this.pet.get(i).getMicrochip());
 			id = id.substring(id.length() - numDigitosID);
@@ -112,25 +112,44 @@ public class Manager {
 				mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex() + this.pet.get(i).getSize()
 						+ d + "\n";
 			}
-			boolean ciloW = false;
-			for (int j = i; j > 0; j--) {
-				try {
-					if (mensaje.equals(this.pet.get(j).getId())) {
-						repite = "repite";
-						throw new IdentifierExistsException();
-					} else {
-						repite = "No repite";
+			boolean cicloW = false;
+			while (!cicloW) {
+				for (int j = i; j > 0; j--) {
+					try {
+						if (mensaje.equals(this.pet.get(j).getId())) {
+							repite = "repite";
+							throw new IdentifierExistsException();
+						} else {
+							cicloW = true;
+							repite = "No repite";
+						}
+						this.pet.get(i).setId(mensaje);
+					} catch (IdentifierExistsException e) {
+						numDigitosID++;
+						id = String.valueOf(this.pet.get(i).getMicrochip());
+						id = id.substring(id.length() - numDigitosID);
+						mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
+								+ this.pet.get(i).getSize() + d + "\n";
 					}
-				} catch (IdentifierExistsException e) {
-					numDigitosID++;
-					id = String.valueOf(this.pet.get(i).getMicrochip());
-					id = id.substring(id.length() - numDigitosID);
-					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
-							+ this.pet.get(i).getSize() + d + "\n";
 				}
 			}
-			this.pet.get(i).setId(mensaje);
-			System.out.println(repite + " " + this.pet.get(i).getId());
+//			for (int j = i; j > 0; j--) {
+//				try {
+//					if (mensaje.equals(this.pet.get(j).getId())) {
+//						repite = "repite";
+//						throw new IdentifierExistsException();
+//					} else {
+//						repite = "No repite";
+//					}
+//				} catch (IdentifierExistsException e) {
+//					numDigitosID++;
+//					id = String.valueOf(this.pet.get(i).getMicrochip());
+//					id = id.substring(id.length() - numDigitosID);
+//					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
+//							+ this.pet.get(i).getSize() + d + "\n";
+//				}
+
+			System.out.println(mensaje);
 		}
 
 	}
