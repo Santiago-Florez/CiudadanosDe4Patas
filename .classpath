@@ -8,5 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Santiago Flórez/Downloads/opencsv-5.5.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Santiago Flórez/Downloads/commons-lang3-3.12.0/commons-lang3-3.12.0.jar"/>
+	<classpathentry kind="lib" path="/home/santiago/Documentos/3semestreSantiago/Programacion2/Java/CiudadanosDe4Patas/Librerias/commons-lang3-3.12.0.jar"/>
+	<classpathentry kind="lib" path="/home/santiago/Documentos/3semestreSantiago/Programacion2/Java/CiudadanosDe4Patas/Librerias/opencsv-5.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

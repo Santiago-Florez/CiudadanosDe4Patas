@@ -94,8 +94,7 @@ public class Manager {
 	public void assingID() {
 		String mensaje = "";
 		String repite = "";
-		int contIDRepetidos = 0;
-		int exceptions = 0;
+		int contIDRepetidos = 0; 
 		String d = "";
 		for (int i = 0; i < 200; i++) {
 			int numDigitosID = 2;
@@ -112,15 +111,18 @@ public class Manager {
 				mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex() + this.pet.get(i).getSize()
 						+ d + "\n";
 			}
-			boolean ciloW = false;
-			for (int j = i; j > 0; j--) {
+			boolean cicloW = true;
+			while (cicloW) {
 				try {
-					if (mensaje.equals(this.pet.get(j).getId())) {
-						repite = "repite";
-						throw new IdentifierExistsException();
-					} else {
-						repite = "No repite";
+					for (int j = i; j > 0; j--) {
+						if (mensaje.equals(this.pet.get(j).getId())) {
+							repite = "repite";
+							throw new IdentifierExistsException();
+						}
+						cicloW = false;
+						this.pet.get(i).setId(mensaje);
 					}
+
 				} catch (IdentifierExistsException e) {
 					numDigitosID++;
 					id = String.valueOf(this.pet.get(i).getMicrochip());
@@ -128,9 +130,9 @@ public class Manager {
 					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
 							+ this.pet.get(i).getSize() + d + "\n";
 				}
+				//this.pet.get(i).setId(mensaje);
+				System.out.println(repite + " " + this.pet.get(i).getId());
 			}
-			this.pet.get(i).setId(mensaje);
-			System.out.println(repite + " " + this.pet.get(i).getId());
 		}
 
 	}
