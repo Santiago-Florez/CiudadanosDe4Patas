@@ -23,7 +23,6 @@ public class Manager {
 	}
 
 	public String uploadData(String ruta) {
-		int datosLeidos = 0;
 		int datosNoLeidos = 0;
 		String mensaje = "";
 		try {
@@ -49,7 +48,7 @@ public class Manager {
 					}
 					if (f[3].equals("MINIATURA")) {
 						this.pets.setSize("MI");
-					} else if (f[3].equals("PEQUEï¿½O")) {
+					} else if (f[3].equals("PEQUEÑO")) {
 						this.pets.setSize("P");
 					} else if (f[3].equals("MEDIANO")) {
 						this.pets.setSize("M");
@@ -68,7 +67,6 @@ public class Manager {
 					} else {
 						throw new EmptyAttributeException();
 					}
-					datosLeidos++;
 					this.pet.add(
 							new Pet("No ASIGNADO", this.pets.getMicrochip(), this.pets.getSpecies(), this.pets.getSex(),
 									this.pets.getSize(), this.pets.isPotentDangerous(), this.pets.getNeighborhood()));
@@ -93,11 +91,9 @@ public class Manager {
 
 	public void assingID() {
 		String mensaje = "";
-		String repite = "";
 		int contIDRepetidos = 0;
-		int exceptions = 0;
 		String d = "";
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < pet.size(); i++) {
 			int numDigitosID = 2;
 			String id = String.valueOf(this.pet.get(i).getMicrochip());
 			id = id.substring(id.length() - numDigitosID);
@@ -114,47 +110,25 @@ public class Manager {
 			}
 			boolean cicloW = false;
 			while (!cicloW) {
-				for (int j = i; j > 0; j--) {
-					try {
+				try {
+					for (int j = i; j > 0; j--) {
 						if (mensaje.equals(this.pet.get(j).getId())) {
-							repite = "repite";
 							throw new IdentifierExistsException();
-						} else {
-							cicloW = true;
-							repite = "No repite";
 						}
-						this.pet.get(i).setId(mensaje);
-					} catch (IdentifierExistsException e) {
-						numDigitosID++;
-						id = String.valueOf(this.pet.get(i).getMicrochip());
-						id = id.substring(id.length() - numDigitosID);
-						mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
-								+ this.pet.get(i).getSize() + d + "\n";
 					}
+					cicloW = true;
+				} catch (IdentifierExistsException e) {
+					numDigitosID++;
+					id = String.valueOf(this.pet.get(i).getMicrochip());
+					id = id.substring(id.length() - numDigitosID);
+					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
+							+ this.pet.get(i).getSize() + d + "\n";
 				}
 			}
-//			for (int j = i; j > 0; j--) {
-//				try {
-//					if (mensaje.equals(this.pet.get(j).getId())) {
-//						repite = "repite";
-//						throw new IdentifierExistsException();
-//					} else {
-//						repite = "No repite";
-//					}
-//				} catch (IdentifierExistsException e) {
-//					numDigitosID++;
-//					id = String.valueOf(this.pet.get(i).getMicrochip());
-//					id = id.substring(id.length() - numDigitosID);
-//					mensaje = id + "-" + this.pet.get(i).getSpecies() + this.pet.get(i).getSex()
-//							+ this.pet.get(i).getSize() + d + "\n";
-//				}
-
+			this.pet.get(i).setId(mensaje);
 			System.out.println(mensaje);
 		}
-
 	}
-
-	// return mensaje +" finalizo la creacion de ID" + " " + exceptions;
 
 	public ArrayList<Pet> getPet() {
 		return pet;
